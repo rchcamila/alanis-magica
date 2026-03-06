@@ -1,0 +1,585 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alanis e a Ordem da Risada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Nunito:wght@500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-a: #0f0f2d;
+      --bg-b: #1f1743;
+      --bg-c: #3f1d5e;
+      --gold: #f6d37a;
+      --mint: #78ffd6;
+      --ink: #fffaf0;
+      --card: rgba(255, 255, 255, 0.08);
+      --stroke: rgba(255, 255, 255, 0.18);
+      --shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Nunito", sans-serif;
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      overflow: auto;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255, 212, 122, 0.2), transparent 26%),
+        radial-gradient(circle at 85% 85%, rgba(120, 255, 214, 0.2), transparent 28%),
+        linear-gradient(140deg, var(--bg-a), var(--bg-b) 45%, var(--bg-c));
+      padding: 20px 0;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: #fff4cd;
+      opacity: 0.7;
+      animation: twinkle 2.8s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.25; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.6); }
+    }
+
+    .card {
+      width: min(94vw, 700px);
+      border-radius: 28px;
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      padding: 28px 22px 22px;
+      position: relative;
+      z-index: 2;
+      animation: rise 620ms ease;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .badge {
+      width: fit-content;
+      margin: 0 auto 10px;
+      border: 1px solid rgba(246, 211, 122, 0.5);
+      color: var(--gold);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      text-align: center;
+      font-family: "Cinzel", serif;
+      font-size: clamp(1.6rem, 4.7vw, 2.7rem);
+      color: #ffe9b0;
+      text-wrap: balance;
+      text-shadow: 0 0 18px rgba(255, 222, 148, 0.35);
+    }
+
+    .subtitle {
+      margin: 10px auto 0;
+      max-width: 50ch;
+      text-align: center;
+      line-height: 1.4;
+      opacity: 0.95;
+      font-size: clamp(0.96rem, 2.8vw, 1.1rem);
+    }
+
+    .wand {
+      margin: 18px auto 0;
+      width: 78px;
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #7a4d2e, #a5754c);
+      position: relative;
+      transform: rotate(-8deg);
+    }
+
+    .wand::after {
+      content: "";
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      transform: translateY(-50%);
+      background: radial-gradient(circle, #fff8cf 15%, #ffe090 45%, transparent 70%);
+      filter: drop-shadow(0 0 8px #ffe090);
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translateY(-50%) scale(0.9); opacity: 0.7; }
+      50% { transform: translateY(-50%) scale(1.15); opacity: 1; }
+    }
+
+    .zone {
+      margin-top: 20px;
+      position: relative;
+      height: 198px;
+      border-radius: 18px;
+      border: 1px dashed rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+    }
+
+    button {
+      position: absolute;
+      border: none;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: clamp(0.96rem, 2.8vw, 1.05rem);
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+      transition: transform 160ms ease, filter 160ms ease;
+      color: #fff;
+      min-width: 140px;
+    }
+
+    button:hover { transform: translateY(-2px) scale(1.02); }
+
+    #yes {
+      left: 24%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(140deg, #f9ab2e, #ffcc66);
+      color: #3f2205;
+    }
+
+    #no {
+      left: 75%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(140deg, #ef476f, #ff6b95);
+    }
+
+    .panel {
+      margin-top: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(9, 9, 31, 0.45);
+      border-radius: 14px;
+      padding: 12px;
+      min-height: 86px;
+    }
+
+    .spell {
+      margin: 0;
+      font-size: clamp(1rem, 3vw, 1.18rem);
+      font-weight: 900;
+      color: var(--mint);
+    }
+
+    .desc {
+      margin: 6px 0 0;
+      opacity: 0.95;
+      line-height: 1.35;
+      font-size: clamp(0.92rem, 2.6vw, 1rem);
+    }
+
+    .small {
+      margin: 10px 0 0;
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .points-banner {
+      margin-top: 14px;
+      text-align: center;
+      font-size: clamp(1.2rem, 4.6vw, 2rem);
+      font-weight: 900;
+      color: #ffe8a3;
+      text-shadow: 0 0 14px rgba(255, 222, 139, 0.45);
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255, 226, 127, 0.12);
+      border: 1px solid rgba(255, 226, 127, 0.38);
+    }
+
+    .patronus {
+      display: none;
+      margin-top: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(120, 255, 214, 0.4);
+      background: rgba(8, 35, 50, 0.55);
+      padding: 14px;
+      animation: rise 400ms ease;
+    }
+
+    .patronus.show { display: block; }
+
+    .patronus-title {
+      margin: 0;
+      font-size: 1.05rem;
+      color: #99ffe0;
+      font-weight: 900;
+    }
+
+    .patronus-text {
+      margin: 8px 0 0;
+      line-height: 1.4;
+      font-size: 1rem;
+    }
+
+    .actions {
+      display: none;
+      margin-top: 12px;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .actions.show { display: grid; }
+
+    .action-btn {
+      position: static;
+      min-width: 0;
+      width: 100%;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 10px 12px;
+      box-shadow: none;
+      font-size: 0.95rem;
+      border-radius: 10px;
+    }
+
+    .action-btn:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .action-result {
+      margin-top: 8px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 10px;
+      min-height: 40px;
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+
+        .magical-fall {
+      position: fixed;
+      top: -30px;
+      font-size: clamp(16px, 2.6vw, 24px);
+      z-index: 6;
+      opacity: 0.95;
+      pointer-events: none;
+      text-shadow: 0 0 12px rgba(255, 240, 170, 0.45);
+      animation: magicalDrop linear forwards;
+    }
+
+    @keyframes magicalDrop {
+      to {
+        transform: translateY(112vh) rotate(520deg);
+        opacity: 1;
+      }
+    }
+}
+
+    @media (max-width: 510px) {
+      .zone { height: 220px; }
+      #yes { left: 28%; }
+      #no { left: 74%; }
+      button { min-width: 122px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+
+  <main class="card">
+    <div class="badge">Edicao especial da Alanis</div>
+    <h1>Alanis e a Ordem da Risada</h1>
+    <p class="subtitle">Pronta para sua dose de magia anti-tristeza? O Ministerio da Felicidade acabou de enviar um pergaminho.</p>
+    <div class="wand"></div>
+
+    <section class="zone" id="zone" aria-label="Zona dos botoes">
+      <button id="yes" type="button">SIM</button>
+      <button id="no" type="button">Hoje nao</button>
+    </section>
+
+    <section class="panel" aria-live="polite">
+      <p class="spell" id="spell">Feitico do dia: aguardando...</p>
+      <p class="desc" id="desc">Clique em SIM para desbloquear a magia e o Patrono fofinho.</p>
+    </section>
+
+    <section class="patronus" id="patronusBox">
+      <p class="patronus-title">Patrono desbloqueado: Lontrinha Brilhante</p>
+      <p class="patronus-text" id="patronusText">Alanis, voce e mais forte do que essa fase. 1 ponto pra Grifinoria.</p>
+    </section>
+
+    <section class="actions" id="actionsBox">
+      <button class="action-btn" id="btnElogio" type="button">Receber elogio aleatorio</button>
+      <button class="action-btn" id="btnDesafio" type="button">Desafio de 30s: respirar + alongar</button>
+      <button class="action-btn" id="btnMeme" type="button">Modo risada: meme magico do dia</button>
+      <div class="action-result" id="actionResult">As acoes aparecem depois do SIM.</div>
+    </section>
+
+    <p class="small" id="counter">Tentativas de clicar em Hoje nao: 0</p>
+    <p class="points-banner">10 PONTOS PARA ALANIS POR EXISTIR HOJE</p>
+  </main>
+
+  <script>
+    const yesBtn = document.getElementById("yes");
+    const noBtn = document.getElementById("no");
+    const zone = document.getElementById("zone");
+    const spellEl = document.getElementById("spell");
+    const descEl = document.getElementById("desc");
+    const counterEl = document.getElementById("counter");
+    const stars = document.getElementById("stars");
+    const patronusBox = document.getElementById("patronusBox");
+    const actionsBox = document.getElementById("actionsBox");
+    const actionResult = document.getElementById("actionResult");
+    const btnElogio = document.getElementById("btnElogio");
+    const btnDesafio = document.getElementById("btnDesafio");
+    const btnMeme = document.getElementById("btnMeme");
+
+    let escapes = 0;
+    let audioCtx = null;
+
+    const spells = [
+      {
+        title: "Expecto Risadum",
+        text: "Seu patrono hoje e uma capivara brilhante dancando forro. Resultado: sorriso inevitavel em 7 segundos."
+      },
+      {
+        title: "Wingardium Autoestima",
+        text: "Atencao: voce foi oficialmente elevada ao cargo de lenda absoluta do dia. Sem recurso possivel."
+      },
+      {
+        title: "Accio Chocolate",
+        text: "Este feitico convoca: um docinho, agua e um meme bom. Combo de cura em andamento."
+      },
+      {
+        title: "Lumos, Alanis!",
+        text: "Seu brilho esta em modo turbo. Ate Azkaban ficaria mais alegre com voce por perto."
+      },
+      {
+        title: "Protego do Caos",
+        text: "Escudo ativado contra pensamentos crueis. Hoje o foco e gentileza consigo mesma."
+      },
+      {
+        title: "Mischief Managed",
+        text: "Profecia oficial: 91% de chance de risada boba, 100% de chance de voce ser querida demais."
+      }
+    ];
+
+    const elogios = [
+      "Voce tem uma coragem absurda, mesmo quando acha que nao.",
+      "Seu jeito ilumina qualquer sala, tipo Lumos versao premium.",
+      "Voce e extremamente querida. Fato canonico.",
+      "Sua sensibilidade e uma forca, nao fraqueza.",
+      "Hoje voce merece gentileza dobrada: dos outros e de voce mesma."
+    ];
+
+    const memes = [
+      "Meme magico: quando voce tenta ficar triste e o patrono aparece dancando funk.",
+      "Breaking: Ministerio decreta proibido nao achar Alanis incrivel.",
+      "POV: voce abriu o app so por 1 min e saiu com 37 pontos de carisma.",
+      "Azkaban cancelado hoje por excesso de brilho da Alanis.",
+      "Noticia urgente: sua risada foi oficialmente registrada como patrimonio magico."
+    ];
+
+    function ensureAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+    }
+
+    function playTone(freq, start, duration, gain) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const vol = audioCtx.createGain();
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(freq, start);
+      vol.gain.setValueAtTime(0.0001, start);
+      vol.gain.exponentialRampToValueAtTime(gain, start + 0.02);
+      vol.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+      osc.connect(vol);
+      vol.connect(audioCtx.destination);
+      osc.start(start);
+      osc.stop(start + duration + 0.02);
+    }
+
+        function playMagicSound() {
+      ensureAudio();
+      const t = audioCtx.currentTime;
+
+      const oscA = audioCtx.createOscillator();
+      const gainA = audioCtx.createGain();
+      oscA.type = "sine";
+      oscA.frequency.setValueAtTime(740, t);
+      oscA.frequency.exponentialRampToValueAtTime(1480, t + 0.2);
+      gainA.gain.setValueAtTime(0.0001, t);
+      gainA.gain.exponentialRampToValueAtTime(0.13, t + 0.03);
+      gainA.gain.exponentialRampToValueAtTime(0.0001, t + 0.26);
+      oscA.connect(gainA);
+      gainA.connect(audioCtx.destination);
+      oscA.start(t);
+      oscA.stop(t + 0.28);
+
+      const oscB = audioCtx.createOscillator();
+      const gainB = audioCtx.createGain();
+      oscB.type = "triangle";
+      oscB.frequency.setValueAtTime(520, t + 0.03);
+      oscB.frequency.exponentialRampToValueAtTime(1040, t + 0.22);
+      gainB.gain.setValueAtTime(0.0001, t + 0.03);
+      gainB.gain.exponentialRampToValueAtTime(0.09, t + 0.06);
+      gainB.gain.exponentialRampToValueAtTime(0.0001, t + 0.28);
+      oscB.connect(gainB);
+      gainB.connect(audioCtx.destination);
+      oscB.start(t + 0.03);
+      oscB.stop(t + 0.3);
+    }
+
+    function playEscapeSound() {
+      ensureAudio();
+      const t = audioCtx.currentTime;
+      playTone(300, t, 0.08, 0.06);
+      playTone(220, t + 0.06, 0.12, 0.05);
+    }
+
+    function rnd(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createStars() {
+      for (let i = 0; i < 70; i++) {
+        const s = document.createElement("span");
+        s.className = "star";
+        s.style.left = `${rnd(0, 100)}vw`;
+        s.style.top = `${rnd(0, 100)}vh`;
+        s.style.animationDelay = `${rnd(0, 2.8)}s`;
+        s.style.animationDuration = `${rnd(2.1, 3.8)}s`;
+        stars.appendChild(s);
+      }
+    }
+
+    function runAway() {
+      const maxX = zone.clientWidth - noBtn.offsetWidth;
+      const maxY = zone.clientHeight - noBtn.offsetHeight;
+      const nextX = rnd(8, Math.max(8, maxX - 8));
+      const nextY = rnd(8, Math.max(8, maxY - 8));
+
+      noBtn.style.left = `${nextX}px`;
+      noBtn.style.top = `${nextY}px`;
+      noBtn.style.transform = "none";
+
+      playEscapeSound();
+
+      escapes += 1;
+      counterEl.textContent = `Tentativas de clicar em Hoje nao: ${escapes}`;
+
+      if (escapes < 4) {
+        descEl.textContent = "O botao Hoje nao foi reprovado no teste de coragem e saiu correndo.";
+      } else if (escapes < 8) {
+        descEl.textContent = "Ministerio confirma: esse botao e veloz porque teme a felicidade.";
+      } else {
+        descEl.textContent = "Relatorio final: destino aponta para um feitico fofo imediatamente.";
+      }
+    }
+
+        function dropMagicalItems() {
+      const items = ["⚡", "✨", "🦉", "🧹", "🔮", "📜", "⭐"];
+      for (let i = 0; i < 90; i++) {
+        const item = document.createElement("span");
+        item.className = "magical-fall";
+        item.textContent = items[Math.floor(Math.random() * items.length)];
+        item.style.left = rnd(0, 100) + "vw";
+        item.style.animationDuration = rnd(2.2, 3.8) + "s";
+        item.style.animationDelay = rnd(0, 0.55) + "s";
+        document.body.appendChild(item);
+        setTimeout(() => item.remove(), 4200);
+      }
+    }
+
+    function castSpell() {
+      const pick = spells[Math.floor(Math.random() * spells.length)];
+      spellEl.textContent = `Feitico do dia: ${pick.title}`;
+      descEl.textContent = pick.text;
+      yesBtn.textContent = "Sortear outro";
+
+      playMagicSound();
+      dropMagicalItems();
+
+      patronusBox.classList.add("show");
+      actionsBox.classList.add("show");
+      actionResult.textContent = "Escolha uma acao rapida abaixo.";
+    }
+
+    function elogioAleatorio() {
+      const text = elogios[Math.floor(Math.random() * elogios.length)];
+      actionResult.textContent = `Elogio: ${text}`;
+    }
+
+    function memeMagico() {
+      const text = memes[Math.floor(Math.random() * memes.length)];
+      actionResult.textContent = text;
+    }
+
+    function desafioRespirar() {
+      let left = 30;
+      actionResult.textContent = `Desafio iniciado: respira fundo e alonga. Tempo: ${left}s`;
+      const timer = setInterval(() => {
+        left -= 1;
+        if (left <= 0) {
+          clearInterval(timer);
+          actionResult.textContent = "Boa! Desafio concluido. +5 pontos de autocuidado para a Alanis.";
+          return;
+        }
+        actionResult.textContent = `Desafio iniciado: respira fundo e alonga. Tempo: ${left}s`;
+      }, 1000);
+    }
+
+    noBtn.addEventListener("mouseenter", runAway);
+    noBtn.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      runAway();
+    });
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      runAway();
+    }, { passive: false });
+
+    yesBtn.addEventListener("click", castSpell);
+    btnElogio.addEventListener("click", elogioAleatorio);
+    btnMeme.addEventListener("click", memeMagico);
+    btnDesafio.addEventListener("click", desafioRespirar);
+
+    createStars();
+  </script>
+</body>
+</html>
+
+
